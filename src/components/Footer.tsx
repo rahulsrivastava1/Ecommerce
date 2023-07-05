@@ -7,8 +7,12 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "darkred",
+        backgroundColor: "#292424",
         marginTop: "auto",
+        height: "2rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
       component="footer"
     >

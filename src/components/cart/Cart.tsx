@@ -1,11 +1,17 @@
+import { Box } from "@mui/material";
 import CartProduct from "./CartProduct";
 
-function Cart() {
+const Cart = () => {
   return (
-    <div>
+    <Box flex={4} p={2}>
       <CartProduct />
-    </div>
+      <CartProduct />
+      <CartProduct />
+      <CartProduct />
+      <CartProduct />
+      <CartProduct />
+    </Box>
   );
-}
+};
 
 export default Cart;
