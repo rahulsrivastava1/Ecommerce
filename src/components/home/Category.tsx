@@ -20,9 +20,11 @@ function Category() {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom marginTop={2} textAlign="center">
-        {categoryName?.charAt(0).toUpperCase() + categoryName.slice(1)}
-      </Typography>
+      {categoryName && (
+        <Typography variant="h4" gutterBottom marginTop={2} textAlign="center">
+          {categoryName?.charAt(0).toUpperCase() + categoryName.slice(1)}
+        </Typography>
+      )}
       {products.length === 0 ? (
         <Typography component="p" ml={5}>
           There is no item for now in this category...
