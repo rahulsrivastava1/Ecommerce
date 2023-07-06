@@ -14,9 +14,10 @@ const HomeCategoryMainCard = ({ title, items }: HomeCategoryMainCardProp) => {
           {title}
         </Typography>
         <Stack direction="row" justifyContent="space-evenly">
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <HomeCategoryCard
+                key={index}
                 image={item.image}
                 name={item.name}
                 startPrice={item.startPrice}

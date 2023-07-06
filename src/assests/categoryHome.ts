@@ -2,13 +2,13 @@ export const electronicsHome = [
     {
         id: "eh1",
         name: "Laptop",
-        startPrice: "55,000",
+        startPrice: "17,900",
         image: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
     },
     {
         id: "eh2",
         name: "Mouse",
-        startPrice: "1,000",
+        startPrice: "99",
         image: "https://www.shutterstock.com/image-photo/wireless-computer-mouse-isolated-on-260nw-95568295.jpg"
     },
     {
@@ -25,7 +25,7 @@ export const electronicsHome = [
     }, 
     {
         id: "eh5",
-        name: "Pen Drive",
+        name: "Pendrive",
         startPrice: "1,449",
         image: "https://www.pngmart.com/files/7/USB-Pen-Drive-PNG-Clipart.png"
     }, 

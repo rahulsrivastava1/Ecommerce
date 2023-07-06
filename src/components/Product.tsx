@@ -1,41 +1,62 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from "@mui/material";
 
 type ProductType = {
-  id: number;
+  id: string;
   name: string;
   image: string;
+  rating: number;
+  desc: string;
   price: string;
 };
 
-const Product = (props: ProductType) => {
+const Product = ({ name, price, image, desc, rating }: ProductType) => {
   return (
     <Card sx={{ width: "21rem", marginBottom: "2rem" }}>
       <CardActionArea>
         <CardMedia
-          sx={{ objectFit: "cover" }}
+          sx={{ objectFit: "scale-down" }}
           component="img"
-          height="200"
-          image={props.image}
-          alt={props.name}
+          height="275"
+          image={image}
+          alt={name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.name}
+            {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ₹{props.price}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {desc}
+          </Typography>
+          <Typography variant="h6">
+            ₹{price}
+            <Typography component="span">
+              <Rating
+                name="read-only"
+                value={rating}
+                readOnly
+                sx={{ fontSize: "1rem", float: "right", marginTop: "1rem" }}
+              />
+            </Typography>
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" variant="outlined">
-          Add to Cart
-        </Button>
-      </CardActions>
     </Card>
   );
 };
