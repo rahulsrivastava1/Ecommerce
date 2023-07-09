@@ -9,6 +9,14 @@ import {
 } from "@mui/material";
 import SelectButton from "../form/SelectButton";
 
+export type CartProductType = {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  image: string;
+};
+
 const Product = {
   id: 1,
   name: "Laptop",

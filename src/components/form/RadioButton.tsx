@@ -5,6 +5,8 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import { useAppDispatch } from "../../redux/hooks";
+import { filterByBrands } from "../../redux";
 
 type RadioButtonProp = {
   value: string;
@@ -14,6 +16,8 @@ type RadioButtonProp = {
 };
 
 const RadioButton = ({ value, onChange, items, title }: RadioButtonProp) => {
+  const dispatch = useAppDispatch();
+
   return (
     <Box>
       <Typography component="legend" mt={1}>
@@ -35,7 +39,10 @@ const RadioButton = ({ value, onChange, items, title }: RadioButtonProp) => {
         defaultValue=""
         name="brand-buttons-group"
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => {
+          onChange(event.target.value);
+          dispatch(filterByBrands(event.target.value, "laptop"));
+        }}
       >
         {items.map((item, index) => {
           return (

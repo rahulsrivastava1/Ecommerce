@@ -8,15 +8,20 @@ import {
   Typography,
 } from "@mui/material";
 import RadioButton from "./form/RadioButton";
+import { useAppDispatch } from "../redux/hooks";
+import { filterByRating } from "../redux";
 
 type FilterProp = {
   brands: string[];
+  category: string | undefined;
 };
 
-const Filter = ({ brands }: FilterProp) => {
-  const [value, setValue] = useState<number | null>(0);
+const Filter = ({ brands, category }: FilterProp) => {
+  const [value, setValue] = useState<number>(0);
   const [selectedBrand, setSelectedBrand] = useState<string>("");
   const [selectedOrder, setSelectedOrder] = useState<string>("");
+
+  const dispatch = useAppDispatch();
 
   return (
     <Box sx={{ width: "20%" }}>
@@ -39,7 +44,12 @@ const Filter = ({ brands }: FilterProp) => {
                     fontSize: "1.5rem",
                     cursor: "pointer",
                   }}
-                  onClick={() => setValue(0)}
+                  onClick={() => {
+                    setValue(0);
+                    {
+                      category && dispatch(filterByRating(0, category));
+                    }
+                  }}
                 >
                   &times;
                 </Typography>
@@ -48,7 +58,11 @@ const Filter = ({ brands }: FilterProp) => {
                 name="simple-controlled"
                 value={value}
                 onChange={(_event, newValue) => {
-                  setValue(newValue);
+                  setValue(Number(newValue));
+                  {
+                    category &&
+                      dispatch(filterByRating(Number(newValue), category));
+                  }
                 }}
               />
             </Box>
@@ -62,7 +76,7 @@ const Filter = ({ brands }: FilterProp) => {
             <RadioButton
               value={selectedOrder}
               onChange={setSelectedOrder}
-              items={["ascending", "descending"]}
+              items={["Low to High", "High to Low"]}
               title="Sort by Price"
             />
           </CardContent>

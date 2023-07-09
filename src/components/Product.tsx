@@ -14,6 +14,7 @@ type ProductType = {
   rating: number;
   desc: string;
   price: string;
+  brand: string;
 };
 
 const Product = ({ name, price, image, desc, rating }: ProductType) => {

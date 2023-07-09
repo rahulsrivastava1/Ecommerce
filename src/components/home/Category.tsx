@@ -1,21 +1,26 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Product from "../Product";
-import { laptop, mouse } from "../../assests/products";
-import { laptopBrands, mouseBrands } from "../../assests/brand";
+import { electronicsHomebrands } from "../../assests/brand";
 import Filter from "../Filter";
+import { useAppSelector } from "../../redux/hooks";
 
 function Category() {
   const { categoryName } = useParams();
 
-  const products =
-    categoryName === "laptop" ? laptop : categoryName === "mouse" ? mouse : [];
+  const products = useAppSelector((state) =>
+    categoryName === "laptop"
+      ? state.products.laptop
+      : categoryName === "mouse"
+      ? state.products.mouse
+      : []
+  );
 
   const brands =
     categoryName === "laptop"
-      ? laptopBrands
+      ? electronicsHomebrands.laptop
       : categoryName === "mouse"
-      ? mouseBrands
+      ? electronicsHomebrands.mouse
       : [];
 
   return (
@@ -31,7 +36,7 @@ function Category() {
         </Typography>
       ) : (
         <Stack direction="row">
-          <Filter brands={brands} />
+          <Filter brands={brands} category={categoryName} />
           <Box sx={{ width: "100%" }}>
             <Box
               marginTop={3}
@@ -52,6 +57,7 @@ function Category() {
                     image={prod.image}
                     price={prod.price}
                     rating={prod.rating}
+                    brand={prod.brand}
                   />
                 );
               })}
