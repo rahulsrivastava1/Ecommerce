@@ -71,6 +71,7 @@ const Filter = ({ brands, category }: FilterProp) => {
               onChange={setSelectedBrand}
               items={brands}
               title="Brand"
+              category={category ?? ""}
             />
             <Divider />
             <RadioButton
@@ -78,6 +79,7 @@ const Filter = ({ brands, category }: FilterProp) => {
               onChange={setSelectedOrder}
               items={["Low to High", "High to Low"]}
               title="Sort by Price"
+              category={category ?? ""}
             />
           </CardContent>
         </Card>

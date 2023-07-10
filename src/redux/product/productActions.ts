@@ -1,3 +1,4 @@
+
 import {
   FILTER_BY_RATING,
   FILTER_BY_BRANDS,
@@ -25,14 +26,16 @@ export const filterByBrands = (val:string, category: string) => {
     }
 }
 
-export const sortByAscending = () => {
+export const sortByAscending = (category: string) => {
     return {
-        type: SORT_BY_ASCENDING
+        type: SORT_BY_ASCENDING,
+        payload: category
     }
 }
 
-export const sortByDescending = () => {
+export const sortByDescending = (category: string) => {
     return {
-        type: SORT_BY_DESCENDING
+        type: SORT_BY_DESCENDING,
+        payload: category
     }
 }

@@ -5,6 +5,8 @@ import {
   SORT_BY_DESCENDING,
 } from "./productConstants";
 import {
+  Laptop,
+  Mouse,
   electronicsHomeProducts,
   electronicsHomeProductsType,
 } from "../../assests/products";
@@ -15,6 +17,9 @@ export type stateType = {
   originalProducts: electronicsHomeProductsType;
   cart: CartProductType[];
   [key: string]: any;
+  isFilteredByRating: boolean;
+  filteredProducts: Laptop[] | Mouse[];
+  isFilteredByBrands: boolean;
 };
 
 export type actionType = {
@@ -29,6 +34,9 @@ const initialState = {
   products: electronicsHomeProducts,
   originalProducts: electronicsHomeProducts,
   cart: [],
+  isFilteredByRating: false,
+  filteredProducts: [],
+  isFilteredByBrands: false,
 } as stateType;
 
 const productReducer = (state = initialState, action: actionType) => {
@@ -37,34 +45,68 @@ const productReducer = (state = initialState, action: actionType) => {
       const { value, category } = action.payload;
       const categoryProducts = state.originalProducts[category];
 
-      if(value===0) {
+      if (value === 0) {
         return {
-          ...state, 
+          ...state,
           products: {
             ...state.products,
             [category]: categoryProducts,
-          }
-        }
+          },
+          isFilteredByRating: false,
+          filteredProducts: [],
+        };
       }
 
       const modifiedArray = categoryProducts.filter((prod) => {
         return prod.rating === value;
       });
 
-      if(modifiedArray.length>0){
-      return {
-        ...state,
-        products: {
-          ...state.products,
-          [category]: modifiedArray,
-        },
-      };
-    }
-    return state;
+      if (modifiedArray.length > 0) {
+        return {
+          ...state,
+          products: {
+            ...state.products,
+            [category]: modifiedArray,
+          },
+          isFilteredByRating: true,
+          filteredProducts: modifiedArray,
+        };
+      }
+      return state;
 
     case FILTER_BY_BRANDS:
-      console.log(state.products);
+      const { value: brandValue, category: brandCategory } = action.payload;
+      const productsToFilter = state.isFilteredByRating
+        ? state.products[brandCategory]
+        : state.originalProducts[brandCategory];
+
+      if (brandValue === "") {
+        return {
+          ...state,
+          products: {
+            ...state.products,
+            [brandCategory]: state.filteredProducts,
+          },
+          isFilteredByBrands: false,
+        };
+      }
+
+      const filteredArray = productsToFilter.filter((prod) => {
+        return prod.brand === brandValue;
+      });
+
+      if (filteredArray.length > 0) {
+        return {
+          ...state,
+          products: {
+            ...state.products,
+            [brandCategory]: filteredArray,
+          },
+          isFilteredByBrands: true,
+        };
+      }
       return state;
+
     case SORT_BY_ASCENDING:
       return state;
     case SORT_BY_DESCENDING:

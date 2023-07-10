@@ -1,4 +1,4 @@
-type Laptop = {
+export type Laptop = {
   id: string;
   name: string;
   price: string;
@@ -8,7 +8,7 @@ type Laptop = {
   image: string;
 };
 
-type Mouse = {
+export type Mouse = {
   id: string;
   name: string;
   price: string;

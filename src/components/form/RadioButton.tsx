@@ -13,9 +13,16 @@ type RadioButtonProp = {
   onChange: (value: string) => void;
   items: string[];
   title: string;
+  category: string;
 };
 
-const RadioButton = ({ value, onChange, items, title }: RadioButtonProp) => {
+const RadioButton = ({
+  value,
+  onChange,
+  items,
+  title,
+  category,
+}: RadioButtonProp) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -29,7 +36,10 @@ const RadioButton = ({ value, onChange, items, title }: RadioButtonProp) => {
             fontSize: "1.5rem",
             cursor: "pointer",
           }}
-          onClick={() => onChange("")}
+          onClick={() => {
+            onChange("");
+            dispatch(filterByBrands("", category));
+          }}
         >
           &times;
         </Typography>
@@ -41,7 +51,7 @@ const RadioButton = ({ value, onChange, items, title }: RadioButtonProp) => {
         value={value}
         onChange={(event) => {
           onChange(event.target.value);
-          dispatch(filterByBrands(event.target.value, "laptop"));
+          dispatch(filterByBrands(event.target.value, category));
         }}
       >
         {items.map((item, index) => {
