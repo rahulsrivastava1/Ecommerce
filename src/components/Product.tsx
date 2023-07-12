@@ -13,7 +13,7 @@ type ProductType = {
   image: string;
   rating: number;
   desc: string;
-  price: string;
+  price: number;
   brand: string;
 };
 
