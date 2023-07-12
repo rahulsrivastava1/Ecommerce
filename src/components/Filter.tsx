@@ -25,7 +25,7 @@ const Filter = ({ brands, category }: FilterProp) => {
 
   return (
     <Box sx={{ width: "20%" }}>
-      <Box sx={{ position: "fixed" }} ml={2} mt={-5}>
+      <Box ml={2}>
         <Card sx={{ minWidth: 200, minHeight: 450 }}>
           <CardContent>
             <Typography variant="h6">Filters</Typography>
@@ -68,7 +68,7 @@ const Filter = ({ brands, category }: FilterProp) => {
             </Box>
             <RadioButton
               value={selectedBrand}
-              onChange={setSelectedBrand}
+              onSelect={setSelectedBrand}
               items={brands}
               title="Brand"
               category={category ?? ""}
@@ -76,7 +76,7 @@ const Filter = ({ brands, category }: FilterProp) => {
             <Divider />
             <RadioButton
               value={selectedOrder}
-              onChange={setSelectedOrder}
+              onSelect={setSelectedOrder}
               items={["Low to High", "High to Low"]}
               title="Sort by Price"
               category={category ?? ""}

@@ -1,12 +1,11 @@
 import {
   FILTER_BY_RATING,
   FILTER_BY_BRANDS,
-  SORT_BY_ASCENDING,
-  SORT_BY_DESCENDING,
+  SORT_BY_ORDER,
 } from "./productConstants";
 import {
-  Laptop,
-  Mouse,
+  LaptopType,
+  MouseType,
   electronicsHomeProducts,
   electronicsHomeProductsType,
 } from "../../assests/products";
@@ -15,11 +14,14 @@ import { CartProductType } from "../../components/cart/CartProduct";
 export type stateType = {
   products: electronicsHomeProductsType;
   originalProducts: electronicsHomeProductsType;
+  isFilteredByRating: boolean;
+  filteredProductsByRating: LaptopType[] | MouseType[];
+  isFilteredByBrands: boolean;
+  filteredProductsByBrands: LaptopType[] | MouseType[];
+  isSortedByOrder: boolean;
+  sortedProductsByOrder: LaptopType[] | MouseType[];
   cart: CartProductType[];
   [key: string]: any;
-  isFilteredByRating: boolean;
-  filteredProducts: Laptop[] | Mouse[];
-  isFilteredByBrands: boolean;
 };
 
 export type actionType = {
@@ -33,32 +35,62 @@ export type actionType = {
 const initialState = {
   products: electronicsHomeProducts,
   originalProducts: electronicsHomeProducts,
-  cart: [],
   isFilteredByRating: false,
-  filteredProducts: [],
+  filteredProductsByRating: [],
   isFilteredByBrands: false,
+  filteredProductsByBrands: [],
+  isSortedByOrder: false,
+  sortedProductsByOrder: [],
+  cart: [],
 } as stateType;
 
 const productReducer = (state = initialState, action: actionType) => {
   switch (action.type) {
     case FILTER_BY_RATING:
-      const { value, category } = action.payload;
-      const categoryProducts = state.originalProducts[category];
+      const { value: rating, category: ratingCategory } = action.payload;
+      const categoryProducts =
+        (state.isFilteredByBrands && state.isSortedByOrder) ||
+        state.isSortedByOrder ||
+        state.isFilteredByBrands
+          ? state.products[ratingCategory]
+          : state.originalProducts[ratingCategory];
 
-      if (value === 0) {
-        return {
-          ...state,
-          products: {
-            ...state.products,
-            [category]: categoryProducts,
-          },
-          isFilteredByRating: false,
-          filteredProducts: [],
-        };
+      if (rating === 0) {
+        if (state.isFilteredByBrands) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [ratingCategory]: state.filteredProductsByBrands,
+            },
+            isFilteredByRating: false,
+            filteredProductsByRating: [],
+          };
+        } else if (state.isSortedByOrder) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [ratingCategory]: state.sortedProductsByOrder,
+            },
+            isFilteredByRating: false,
+            filteredProductsByRating: [],
+          };
+        } else {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [ratingCategory]: categoryProducts,
+            },
+            filteredProductsByRating: [],
+            isFilteredByRating: false,
+          };
+        }
       }
 
       const modifiedArray = categoryProducts.filter((prod) => {
-        return prod.rating === value;
+        return prod.rating === rating;
       });
 
       if (modifiedArray.length > 0) {
@@ -66,33 +98,50 @@ const productReducer = (state = initialState, action: actionType) => {
           ...state,
           products: {
             ...state.products,
-            [category]: modifiedArray,
+            [ratingCategory]: modifiedArray,
           },
+          filteredProductsByRating: modifiedArray,
           isFilteredByRating: true,
-          filteredProducts: modifiedArray,
         };
       }
       return state;
 
     case FILTER_BY_BRANDS:
-      const { value: brandValue, category: brandCategory } = action.payload;
-      const productsToFilter = state.isFilteredByRating
-        ? state.products[brandCategory]
-        : state.originalProducts[brandCategory];
+      const { value: brandName, category: brandCategory } = action.payload;
+      const productsToFilter =
+        (state.isFilteredByRating && state.isSortedByOrder) ||
+        state.isSortedByOrder ||
+        state.isFilteredByRating
+          ? state.products[brandCategory]
+          : state.originalProducts[brandCategory];
 
-      if (brandValue === "") {
-        return {
-          ...state,
-          products: {
-            ...state.products,
-            [brandCategory]: state.filteredProducts,
-          },
-          isFilteredByBrands: false,
-        };
+      if (brandName === "") {
+        if (
+          state.filteredProductsByRating.length > 0 &&
+          state.isFilteredByRating
+        ) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [brandCategory]: state.filteredProductsByRating,
+            },
+            isFilteredByBrands: false,
+          };
+        } else {
+          return {
+            ...state,
+            products: {
+              ...state.originalProducts,
+            },
+            filteredProductsByBrands: [],
+            isFilteredByBrands: false,
+          };
+        }
       }
 
       const filteredArray = productsToFilter.filter((prod) => {
-        return prod.brand === brandValue;
+        return prod.brand === brandName;
       });
 
       if (filteredArray.length > 0) {
@@ -102,15 +151,73 @@ const productReducer = (state = initialState, action: actionType) => {
             ...state.products,
             [brandCategory]: filteredArray,
           },
+          filteredProductsByBrands: filteredArray,
           isFilteredByBrands: true,
         };
       }
       return state;
 
-    case SORT_BY_ASCENDING:
-      return state;
-    case SORT_BY_DESCENDING:
-      return state;
+    case SORT_BY_ORDER:
+      const { value: sortOrder, category: sortCategory } = action.payload;
+      const productsToSort = state.isFilteredByBrands
+        ? state.filteredProductsByBrands
+        : state.isFilteredByRating
+        ? state.filteredProductsByRating
+        : state.products[sortCategory];
+
+      if (sortOrder === "") {
+        if (state.isFilteredByRating) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [sortCategory]: state.filteredProductsByRating,
+            },
+            isSortedByOrder: false,
+          };
+        } else if (state.isFilteredByBrands) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [sortCategory]: state.filteredProductsByBrands,
+            },
+            isSortedByOrder: false,
+          };
+        }
+        return {
+          ...state,
+          products: {
+            ...state.products,
+            [sortCategory]: state.originalProducts[sortCategory],
+          },
+          isSortedByOrder: false,
+        };
+      }
+
+      let sortedArray = [...productsToSort];
+
+      switch (sortOrder) {
+        case "ascending":
+          sortedArray.sort((a, b) => a.price - b.price);
+          break;
+        case "descending":
+          sortedArray.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
+
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          [sortCategory]: sortedArray,
+        },
+        isSortedByOrder: true,
+        sortedProductsByOrder: sortedArray,
+      };
+
     default:
       return state;
   }

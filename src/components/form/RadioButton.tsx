@@ -6,11 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppDispatch } from "../../redux/hooks";
-import { filterByBrands } from "../../redux";
+import { filterByBrands, sortByOrder } from "../../redux";
 
 type RadioButtonProp = {
   value: string;
-  onChange: (value: string) => void;
+  onSelect: (value: string) => void;
   items: string[];
   title: string;
   category: string;
@@ -18,7 +18,7 @@ type RadioButtonProp = {
 
 const RadioButton = ({
   value,
-  onChange,
+  onSelect,
   items,
   title,
   category,
@@ -37,8 +37,12 @@ const RadioButton = ({
             cursor: "pointer",
           }}
           onClick={() => {
-            onChange("");
-            dispatch(filterByBrands("", category));
+            onSelect("");
+            if (title === "Brand") {
+              dispatch(filterByBrands("", category));
+            } else {
+              dispatch(sortByOrder("", category));
+            }
           }}
         >
           &times;
@@ -50,8 +54,14 @@ const RadioButton = ({
         name="brand-buttons-group"
         value={value}
         onChange={(event) => {
-          onChange(event.target.value);
-          dispatch(filterByBrands(event.target.value, category));
+          onSelect(event.target.value);
+          if (title === "Brand") {
+            dispatch(filterByBrands(event.target.value, category));
+          } else {
+            const order =
+              event.target.value === "Low to High" ? "ascending" : "descending";
+            dispatch(sortByOrder(order, category));
+          }
         }}
       >
         {items.map((item, index) => {
@@ -61,6 +71,7 @@ const RadioButton = ({
               value={item}
               control={<Radio />}
               label={item}
+              disabled={value === "" ? false : true}
             />
           );
         })}

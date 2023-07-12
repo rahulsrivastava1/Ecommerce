@@ -13,7 +13,7 @@ export type CartProductType = {
   id: string;
   name: string;
   desc: string;
-  price: string;
+  price: number;
   image: string;
 };
 
@@ -21,7 +21,7 @@ const Product = {
   id: 1,
   name: "Laptop",
   desc: "a battery- or AC-powered personal computer (PC) smaller than a briefcase",
-  price: "50,500",
+  price: 50500,
   image:
     "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
 };
