@@ -19,7 +19,11 @@ const Footer = () => {
       <Container maxWidth="sm">
         <Typography variant="body2" color="#fff" align="center">
           {"Copyright © "}
-          <Link color="inherit" href="https://your-website.com/">
+          <Link
+            color="inherit"
+            href="https://linktr.ee/rahulsrivastav"
+            target="_blank"
+          >
             Ecommerce
           </Link>{" "}
           {new Date().getFullYear()}

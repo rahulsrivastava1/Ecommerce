@@ -58,6 +58,7 @@ function Category() {
                     price={prod.price}
                     rating={prod.rating}
                     brand={prod.brand}
+                    categoryName={categoryName}
                   />
                 );
               })}

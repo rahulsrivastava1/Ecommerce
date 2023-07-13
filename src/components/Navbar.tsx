@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useAppSelector } from "../redux/hooks";
 
 const Navbar = () => {
+  const cart = useAppSelector((state) => state.cart);
+
   return (
     <AppBar position="sticky">
       <Toolbar variant="dense">
@@ -24,7 +27,7 @@ const Navbar = () => {
             component="div"
             sx={{ m: 2 }}
           >
-            Cart
+            {cart.length === 0 ? "Cart" : `Cart (${cart.length})`}
           </Typography>
         </Link>
       </Toolbar>

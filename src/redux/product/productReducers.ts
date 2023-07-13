@@ -2,6 +2,8 @@ import {
   FILTER_BY_RATING,
   FILTER_BY_BRANDS,
   SORT_BY_ORDER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
 } from "./productConstants";
 import {
   LaptopType,
@@ -27,7 +29,7 @@ export type stateType = {
 export type actionType = {
   type: string;
   payload: {
-    value: number | string;
+    value: number | string | CartProductType;
     category: string;
   };
 };
@@ -44,7 +46,10 @@ const initialState = {
   cart: [],
 } as stateType;
 
-const productReducer = (state = initialState, action: actionType) => {
+const productReducer = (
+  state = initialState,
+  action: actionType
+): stateType => {
   switch (action.type) {
     case FILTER_BY_RATING:
       const { value: rating, category: ratingCategory } = action.payload;
@@ -116,23 +121,32 @@ const productReducer = (state = initialState, action: actionType) => {
           : state.originalProducts[brandCategory];
 
       if (brandName === "") {
-        if (
-          state.filteredProductsByRating.length > 0 &&
-          state.isFilteredByRating
-        ) {
+        if (state.isFilteredByRating) {
           return {
             ...state,
             products: {
               ...state.products,
               [brandCategory]: state.filteredProductsByRating,
             },
+            filteredProductsByBrands: [],
             isFilteredByBrands: false,
+          };
+        } else if (state.isSortedByOrder) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [brandCategory]: state.sortedProductsByOrder,
+            },
+            isFilteredByRating: false,
+            filteredProductsByBrands: [],
           };
         } else {
           return {
             ...state,
             products: {
-              ...state.originalProducts,
+              ...state.products,
+              [brandCategory]: productsToFilter,
             },
             filteredProductsByBrands: [],
             isFilteredByBrands: false,
@@ -159,23 +173,15 @@ const productReducer = (state = initialState, action: actionType) => {
 
     case SORT_BY_ORDER:
       const { value: sortOrder, category: sortCategory } = action.payload;
-      const productsToSort = state.isFilteredByBrands
-        ? state.filteredProductsByBrands
-        : state.isFilteredByRating
-        ? state.filteredProductsByRating
-        : state.products[sortCategory];
+      const productsToSort =
+        (state.isFilteredByBrands && state.isFilteredByRating) ||
+        state.isFilteredByBrands ||
+        state.isFilteredByRating
+          ? state.products[sortCategory]
+          : state.originalProducts[sortCategory];
 
       if (sortOrder === "") {
-        if (state.isFilteredByRating) {
-          return {
-            ...state,
-            products: {
-              ...state.products,
-              [sortCategory]: state.filteredProductsByRating,
-            },
-            isSortedByOrder: false,
-          };
-        } else if (state.isFilteredByBrands) {
+        if (state.isFilteredByBrands) {
           return {
             ...state,
             products: {
@@ -183,16 +189,29 @@ const productReducer = (state = initialState, action: actionType) => {
               [sortCategory]: state.filteredProductsByBrands,
             },
             isSortedByOrder: false,
+            sortedProductsByOrder: [],
+          };
+        } else if (state.isFilteredByRating) {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [sortCategory]: state.filteredProductsByRating,
+            },
+            isSortedByOrder: false,
+            sortedProductsByOrder: [],
+          };
+        } else {
+          return {
+            ...state,
+            products: {
+              ...state.products,
+              [sortCategory]: productsToSort,
+            },
+            isSortedByOrder: false,
+            sortedProductsByOrder: [],
           };
         }
-        return {
-          ...state,
-          products: {
-            ...state.products,
-            [sortCategory]: state.originalProducts[sortCategory],
-          },
-          isSortedByOrder: false,
-        };
       }
 
       let sortedArray = [...productsToSort];
@@ -208,14 +227,42 @@ const productReducer = (state = initialState, action: actionType) => {
           break;
       }
 
+      if (sortedArray.length > 0) {
+        return {
+          ...state,
+          products: {
+            ...state.products,
+            [sortCategory]: sortedArray,
+          },
+          isSortedByOrder: true,
+          sortedProductsByOrder: sortedArray,
+        };
+      }
+      return state;
+
+    case ADD_TO_CART:
+      const { value: product } = action.payload as { value: CartProductType };
+
+      const isProductInCart = state.cart.some((item) => item.id === product.id);
+
+      if (isProductInCart) {
+        return state;
+      }
+
+      const updatedCart = [...state.cart, product as CartProductType];
+
       return {
         ...state,
-        products: {
-          ...state.products,
-          [sortCategory]: sortedArray,
-        },
-        isSortedByOrder: true,
-        sortedProductsByOrder: sortedArray,
+        cart: updatedCart,
+      };
+
+    case REMOVE_FROM_CART:
+      const { value: id } = action.payload;
+      const modifiedCart = state.cart.filter((product) => product.id !== id);
+
+      return {
+        ...state,
+        cart: modifiedCart,
       };
 
     default:

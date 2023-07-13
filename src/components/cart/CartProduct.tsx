@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import SelectButton from "../form/SelectButton";
+import { useAppDispatch } from "../../redux/hooks";
+import { removeFromCart } from "../../redux";
 
 export type CartProductType = {
   id: string;
@@ -17,29 +19,22 @@ export type CartProductType = {
   image: string;
 };
 
-const Product = {
-  id: 1,
-  name: "Laptop",
-  desc: "a battery- or AC-powered personal computer (PC) smaller than a briefcase",
-  price: 50500,
-  image:
-    "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-};
+const CartProduct = ({ id, name, desc, price, image }: CartProductType) => {
+  const dispatch = useAppDispatch();
 
-const CartProduct = () => {
   return (
     <Card sx={{ display: "flex", marginBottom: "1rem", padding: "5px" }}>
       <CardMedia
         component="img"
-        sx={{ width: 200, height: 180 }}
-        image={Product.image}
-        alt={Product.name}
+        sx={{ maxWidth: 200, height: 180, objectFit: "scale-down" }}
+        image={image}
+        alt={name}
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="h5" component="div">
-              {Product.name}
+              {name}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -47,7 +42,7 @@ const CartProduct = () => {
               component="div"
               fontSize="1.5rem"
             >
-              ₹{Product.price}
+              ₹{price}
             </Typography>
           </Stack>
           <Stack direction="row" justifyContent="space-between">
@@ -56,13 +51,24 @@ const CartProduct = () => {
               color="text.secondary"
               component="div"
               width="70%"
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: "2",
+                WebkitBoxOrient: "vertical",
+              }}
             >
-              {Product.desc}
+              {desc}
             </Typography>
             <SelectButton />
           </Stack>
           <Box mt={2}>
-            <Button variant="contained" color="error">
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => dispatch(removeFromCart(id, ""))}
+            >
               Remove from Cart
             </Button>
           </Box>

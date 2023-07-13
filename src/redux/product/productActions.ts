@@ -1,7 +1,10 @@
+import { CartProductType } from "../../components/cart/CartProduct";
 import {
   FILTER_BY_RATING,
   FILTER_BY_BRANDS,
   SORT_BY_ORDER,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
 } from "./productConstants";
 
 export const filterByRating = (val: number, category: string) => {
@@ -27,6 +30,26 @@ export const filterByBrands = (val: string, category: string) => {
 export const sortByOrder = (val: string, category: string) => {
   return {
     type: SORT_BY_ORDER,
+    payload: {
+      value: val,
+      category: category,
+    },
+  };
+};
+
+export const addtoCart = (val: CartProductType, category: string) => {
+  return {
+    type: ADD_TO_CART,
+    payload: {
+      value: val,
+      category: category,
+    },
+  };
+};
+
+export const removeFromCart = (val: string, category: string) => {
+  return {
+    type: REMOVE_FROM_CART,
     payload: {
       value: val,
       category: category,

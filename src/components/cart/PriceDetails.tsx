@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -6,8 +7,19 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useAppSelector } from "../../redux/hooks";
 
 const PriceDetails = () => {
+  const cart = useAppSelector((state) => state.cart);
+
+  const [total, setTotal] = useState(0);
+
+  let discount = total < 1500 ? 0 : 1500;
+
+  useEffect(() => {
+    setTotal(cart.reduce((acc, curr) => acc + curr.price, 0));
+  }, [cart]);
+
   return (
     <Box flex={2} p={2}>
       <Box position="fixed">
@@ -24,10 +36,10 @@ const PriceDetails = () => {
             <Divider />
             <Stack direction="row" justifyContent="space-between" mt={3}>
               <Typography variant="h6" fontWeight={400}>
-                Price ( 1 item )
+                {`Price ( ${cart.length} item )`}
               </Typography>
               <Typography variant="h6" fontWeight={300}>
-                ₹ 50,500
+                ₹ {total}
               </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between" mt={1}>
@@ -35,7 +47,7 @@ const PriceDetails = () => {
                 Discount
               </Typography>
               <Typography variant="h6" fontWeight={300} color="green">
-                - ₹ 1,500
+                - ₹ {discount}
               </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between" mt={1} mb={2}>
@@ -52,12 +64,12 @@ const PriceDetails = () => {
                 Total Amount
               </Typography>
               <Typography variant="h6" fontWeight={800}>
-                ₹ 49,000
+                ₹ {total - discount}
               </Typography>
             </Stack>
             <Divider />
             <Typography color="green" mt={2}>
-              You will save ₹3,300 on this order
+              You will save ₹{discount} on this order
             </Typography>
           </CardContent>
         </Card>
