@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -12,7 +13,7 @@ import {
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { electronicsHomeProducts } from "../../assests/products";
 import Icons from "./Icons";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addtoCart } from "../../redux";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   categoryName: "",
   rating: 0,
   available: false,
+  qty: 1,
 };
 
 const ProductDesc = () => {
@@ -42,7 +44,12 @@ const ProductDesc = () => {
     setProduct((prevProd) => ({ ...prevProd, ...product }));
   }, []);
 
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart);
+
+  const productInCart = cart.some((c) => c.id === id);
 
   return (
     <Box>
@@ -79,8 +86,13 @@ const ProductDesc = () => {
           <Divider />
           <Box m={2} p={1}>
             <Typography>
-              Available:{" "}
-              {`${product.available === true ? "In Stock" : "Not available"}`}
+              Available:
+              <Typography
+                color={`${product.available === true ? "Green" : "Red"}`}
+                component="span"
+              >{`${
+                product.available === true ? " In Stock" : " Not available"
+              }`}</Typography>
             </Typography>
             <Typography>
               Category:{" "}
@@ -88,17 +100,37 @@ const ProductDesc = () => {
             </Typography>
             <Typography>Brand: {product.brand}</Typography>
           </Box>
-          <Button
-            variant="contained"
-            endIcon={<AddShoppingCartIcon />}
-            size="large"
-            color="error"
-            disabled={!product.available}
-            sx={{ marginTop: "1rem", width: "50%" }}
-            onClick={() => dispatch<any>(addtoCart(product, ""))}
-          >
-            Add to Cart
-          </Button>
+          {productInCart ? (
+            <Button
+              variant="contained"
+              endIcon={<AddShoppingCartIcon />}
+              size="large"
+              disabled={!product.available}
+              sx={{
+                marginTop: "1rem",
+                width: "50%",
+                backgroundColor: "#FF9F00",
+              }}
+              onClick={() => navigate("/cart")}
+            >
+              Go to Cart
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              endIcon={<AddShoppingCartIcon />}
+              size="large"
+              color="error"
+              disabled={!product.available}
+              sx={{
+                marginTop: "1rem",
+                width: "50%",
+              }}
+              onClick={() => dispatch<any>(addtoCart(product, ""))}
+            >
+              Add to Cart
+            </Button>
+          )}
         </Box>
       </Stack>
     </Box>

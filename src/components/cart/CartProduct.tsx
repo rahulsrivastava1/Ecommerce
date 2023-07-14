@@ -17,9 +17,17 @@ export type CartProductType = {
   desc: string;
   price: number;
   image: string;
+  qty: number;
 };
 
-const CartProduct = ({ id, name, desc, price, image }: CartProductType) => {
+const CartProduct = ({
+  id,
+  name,
+  desc,
+  price,
+  image,
+  qty,
+}: CartProductType) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -61,7 +69,7 @@ const CartProduct = ({ id, name, desc, price, image }: CartProductType) => {
             >
               {desc}
             </Typography>
-            <SelectButton />
+            <SelectButton qty={qty} id={id} />
           </Stack>
           <Box mt={2}>
             <Button

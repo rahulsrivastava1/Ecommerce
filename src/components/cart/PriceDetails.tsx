@@ -17,7 +17,7 @@ const PriceDetails = () => {
   let discount = total < 1500 ? 0 : 1500;
 
   useEffect(() => {
-    setTotal(cart.reduce((acc, curr) => acc + curr.price, 0));
+    setTotal(cart.reduce((acc, curr) => acc + curr.price * curr.qty, 0));
   }, [cart]);
 
   return (

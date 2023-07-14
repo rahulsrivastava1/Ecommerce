@@ -7,6 +7,7 @@ export type LaptopType = {
   desc: string;
   image: string;
   available: boolean;
+  qty: number;
 };
 
 export type MouseType = {
@@ -18,6 +19,7 @@ export type MouseType = {
   desc: string;
   image: string;
   available: boolean;
+  qty: number;
 };
 
 export type electronicsHomeProductsType = {
@@ -38,6 +40,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/kxnl6kw0/computer/p/y/t/a5efk-083in-gaming-laptop-msi-original-imaga237dvrrnznh.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l2",
@@ -49,6 +52,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/xif0q/computer/g/w/y/-original-imagmuhrzbmzwnee.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l3",
@@ -60,6 +64,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/l4n2oi80/computer/i/g/f/-original-imagfhpzm88zjzyc.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l4",
@@ -71,6 +76,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/xif0q/computer/9/i/w/-original-imagqkqncydutzbv.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "l5",
@@ -82,6 +88,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/xif0q/computer/3/w/x/-original-imagqkqmy8nfzebj.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l6",
@@ -93,6 +100,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/312/312/kf4ajrk0/computer/q/8/5/dell-na-gaming-laptop-original-imafvn3yewuackzs.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "l7",
@@ -104,6 +112,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/5/6/i/-original-imaggshd5zgfe8ev.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l8",
@@ -115,6 +124,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/b/j/7/bravo-15-b5ed-notebook-msi-original-imagz3rya2qqbhjt.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "l9",
@@ -126,6 +136,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/q/e/z/-original-imagpxgqesgrthks.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l10",
@@ -137,6 +148,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/d/l/q/-original-imagphhh4syr7qrg.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l11",
@@ -148,6 +160,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/u/m/k/-original-imagzyfzhzcw8wvp.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l12",
@@ -159,6 +172,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/l37mtu80/computer/o/o/w/np750xee-xb1in-thin-and-light-laptop-samsung-original-imagednvzzu7t23v.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l13",
@@ -170,6 +184,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/z/b/z/-original-imagmmng8dppnn4v.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l14",
@@ -181,6 +196,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/kp5sya80/screen-guard/tempered-glass/o/v/n/apple-macbook-air-m1-13-3-inch-lightwings-original-imag3gh5xftgbpg3.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "l15",
@@ -192,6 +208,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/b/d/i/-original-imagzhefhc84rmbf.jpeg?q=70",
       available: true,
+      qty: 1,
     },
   ],
   mouse: [
@@ -205,6 +222,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/k4a7c7k0/mouse/m/h/t/dell-ms116-wired-optical-mouse-3yrs-warranty-original-imafmktgxyt5ge9k.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "m2",
@@ -216,6 +234,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/kt4ozgw0/mouse/a/d/l/toad-13-portronics-original-imag6jqawv8zhpum.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m3",
@@ -227,6 +246,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/ju8oxow0/mouse-refurbished/6/b/z/c-optical-mouse-kb-mice-bo-lenovo-300-usb-mouse-lenovo-original-imaf9hpfxkrf4sdh.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m4",
@@ -238,6 +258,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/kxnl6kw0/mouse/5/8/m/wireless-gaming-mouse-rechargeable-500-mah-battery-upto-3200-dpi-original-imaga2da9yxvenhc.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m5",
@@ -249,6 +270,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/l3lx8cw0/mouse/i/o/f/toad-24-with-adjustable-dpi-portronics-original-imagepfzkggpsxz9.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "m6",
@@ -260,6 +282,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim1.flixcart.com/image/612/612/ksxjs7k0/mouse/n/5/l/zeb-rise-zebronics-original-imag6duduz5gvhhz.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m7",
@@ -271,6 +294,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/xif0q/mouse/2/h/7/-original-imagm2gtrm4h7nnu.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m8",
@@ -282,6 +306,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/xif0q/mouse/6/d/s/toad-23-adjustable-dpi-2-4ghz-portronics-original-imagz3jxmu8qnekb.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "m9",
@@ -293,6 +318,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/xif0q/mouse/7/f/t/-original-imagn3f9dwuqwqyt.jpeg?q=70",
       available: true,
+      qty: 1,
     },
     {
       id: "m10",
@@ -304,6 +330,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/k7nnrm80/mouse/u/d/z/hp-m270-gaming-mouse-original-imafpupd8wwzefjm.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "m11",
@@ -315,6 +342,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/kura1e80/mouse/w/4/a/f-1-gaming-mouse-wired-for-compute-entwino-original-imag7tykfbp9yquk.jpeg?q=70",
       available: false,
+      qty: 1,
     },
     {
       id: "m12",
@@ -326,6 +354,7 @@ export const electronicsHomeProducts = {
       image:
         "https://rukminim2.flixcart.com/image/612/612/kiyw9e80-0/mouse/l/f/p/gm320-7200-dpi-adjustable-i-8-programmable-buttons-gaming-ant-original-imafymz4rfsu9yyq.jpeg?q=70",
       available: true,
+      qty: 1,
     },
   ],
 };

@@ -5,6 +5,7 @@ import {
   SORT_BY_ORDER,
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  CHANGE_PRODUCT_QUANTITY,
 } from "./productConstants";
 
 export const filterByRating = (val: number, category: string) => {
@@ -51,6 +52,21 @@ export const removeFromCart = (val: string, category: string) => {
   return {
     type: REMOVE_FROM_CART,
     payload: {
+      value: val,
+      category: category,
+    },
+  };
+};
+
+export const changeProductQuantity = (
+  id: string,
+  val: number,
+  category: string
+) => {
+  return {
+    type: CHANGE_PRODUCT_QUANTITY,
+    payload: {
+      id: id,
       value: val,
       category: category,
     },

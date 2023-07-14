@@ -4,6 +4,7 @@ import {
   SORT_BY_ORDER,
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  CHANGE_PRODUCT_QUANTITY,
 } from "./productConstants";
 import {
   LaptopType,
@@ -30,6 +31,7 @@ export type actionType = {
   type: string;
   payload: {
     value: number | string | CartProductType;
+    id?: string;
     category: string;
   };
 };
@@ -263,6 +265,16 @@ const productReducer = (
       return {
         ...state,
         cart: modifiedCart,
+      };
+
+    case CHANGE_PRODUCT_QUANTITY:
+      const { value: quantity, id: prodId } = action.payload;
+
+      return {
+        ...state,
+        cart: state.cart.filter((c) =>
+          c.id === prodId ? (c.qty = Number(quantity)) : c.qty
+        ),
       };
 
     default:

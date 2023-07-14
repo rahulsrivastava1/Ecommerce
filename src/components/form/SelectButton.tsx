@@ -3,12 +3,22 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useAppDispatch } from "../../redux/hooks";
+import { changeProductQuantity } from "../../redux";
 
-const SelectButton = () => {
-  const [noOfItem, setNoOfItem] = React.useState("1");
+type SelectButtonType = {
+  qty: number;
+  id: string;
+};
+
+const SelectButton = ({ qty, id }: SelectButtonType) => {
+  const dispatch = useAppDispatch();
+
+  const [noOfItem, setNoOfItem] = React.useState(qty);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setNoOfItem(event.target.value);
+    setNoOfItem(Number(event.target.value));
+    dispatch(changeProductQuantity(id, Number(event.target.value), ""));
   };
 
   return (
@@ -17,11 +27,11 @@ const SelectButton = () => {
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"
-        value={noOfItem}
+        value={String(noOfItem)}
         label="No. of Items"
-        onChange={handleChange}
+        onChange={(e) => handleChange(e)}
       >
-        <MenuItem value={noOfItem}>1</MenuItem>
+        <MenuItem value={1}>1</MenuItem>
         <MenuItem value={2}>2</MenuItem>
         <MenuItem value={3}>3</MenuItem>
         <MenuItem value={4}>4</MenuItem>
