@@ -30,6 +30,23 @@ const Navbar = () => {
             {cart.length === 0 ? "Cart" : `Cart (${cart.length})`}
           </Typography>
         </Link>
+        <Link
+          to="/login"
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            marginLeft: "auto",
+          }}
+        >
+          <Typography
+            variant="h6"
+            color="inherit"
+            component="div"
+            sx={{ m: 2 }}
+          >
+            Login
+          </Typography>
+        </Link>
       </Toolbar>
     </AppBar>
   );
